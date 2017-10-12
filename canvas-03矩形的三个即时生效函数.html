@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body{
+            text-align: center
+        }
+        canvas{
+            border: 1px solid black
+        }
+    </style>
+</head>
+<body>
+    <canvas class="canvas"></canvas>
+    <script>
+        let canvas = document.querySelector('.canvas')
+        let ctx = canvas.getContext('2d')
+
+        // 以下三个函数的绘制在canvas上即时生效 
+
+        ctx.fillRect(25,25,100,100);
+        // 下面区域内容将变成透明的
+        ctx.clearRect(45,45,60,60);
+        // 矩形边框
+        ctx.strokeRect(50,50,50,50);
+    </script>
+</body>
+</html>
