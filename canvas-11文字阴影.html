@@ -9,7 +9,6 @@
         body {
             text-align: center
         }
-
         canvas {
             border: 1px solid black
         }
@@ -20,19 +19,14 @@
 <script>
   var ctx = document.getElementById('canvas').getContext('2d')
 
-  var img = new Image()
-  img.src = './lks.png'
+  ctx.shadowOffsetX = 2;
+  ctx.shadowOffsetY = 2;
+  ctx.shadowBlur = 2;
+  ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
 
-  img.onload = function () {
-
-    // 创建图案
-    var ptrn = ctx.createPattern(img, 'no-repeat')
-    ctx.fillStyle = ptrn
-    // draw shapes
-    ctx.fillRect(0, 0, 200, 200)
-  }
-
-
+  ctx.font = "20px Times New Roman";
+  ctx.fillStyle = "Black";
+  ctx.fillText("Sample String", 5, 30);
 
 </script>
 </body>
