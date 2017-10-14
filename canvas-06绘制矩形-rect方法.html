@@ -20,20 +20,12 @@
         let canvas = document.querySelector('.canvas')
         let ctx = canvas.getContext('2d')
 
-        // 填充三角形
-        ctx.beginPath();
-        ctx.moveTo(25,25);
-        ctx.lineTo(105,25);
-        ctx.lineTo(25,105);
-        ctx.fill();
-
-        // 描边三角形
-        ctx.beginPath();
-        ctx.moveTo(125,125);
-        ctx.lineTo(125,45);
-        ctx.lineTo(45,125);
-        ctx.closePath();
-        ctx.stroke();
+        ctx.rect(20,30, 40, 40)
+        // 设置半透明
+        ctx.fillStyle = "rgba(255,0,0,0.5)";
+        ctx.fill()
+//        ctx.stroke()
+        // 同时使用两个方法 既有边框 又又填充, 比较厚
     </script>
 </body>
 </html>
