@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            text-align: center
+        }
+        canvas {
+            border: 1px solid black
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<script>
+  var ctx = document.getElementById('canvas').getContext('2d')
+
+  ctx.beginPath();
+  ctx.arc(50, 50, 30, 0, Math.PI*2, true);
+  ctx.arc(50, 50, 15, 0, Math.PI*2, true);
+// 填充两者之间部分
+//  ctx.fill("evenodd");
+
+  // 最大的全部填充
+  ctx.fill("nonzero");
+
+</script>
+</body>
+</html>

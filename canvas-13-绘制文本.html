@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            text-align: center
+        }
+        canvas {
+            border: 1px solid black
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<script>
+  var ctx = document.getElementById('canvas').getContext('2d')
+
+  ctx.font = "36px serif";
+//  ctx.textAlign = "center"
+//  ctx.fillText("Hello world", 10, 50, 140);
+  // 中间镂空的线条 文本用当前的边框样式被绘制：
+  ctx.strokeText("Hello world", 10, 50, 140);
+
+</script>
+</body>
+</html>
