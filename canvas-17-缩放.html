@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            text-align: center
+        }
+
+        canvas {
+            border: 1px solid black;
+            /*height: 250px;*/
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<button class="restore">restore</button>
+<script>
+  var ctx = document.getElementById('canvas').getContext('2d')
+  function drawSpirograph(ctx,R,r,O){
+      var x1 = R-O;
+      var y1 = 0;
+      var i  = 1;
+      ctx.beginPath();
+      ctx.moveTo(x1,y1);
+      do {
+          if (i>20000) break;
+          var x2 = (R+r)*Math.cos(i*Math.PI/72) - (r+O)*Math.cos(((R+r)/r)*(i*Math.PI/72))
+          var y2 = (R+r)*Math.sin(i*Math.PI/72) - (r+O)*Math.sin(((R+r)/r)*(i*Math.PI/72))
+          ctx.lineTo(x2,y2);
+          x1 = x2;
+          y1 = y2;
+          i++;
+      } while (x2 != R-O && y2 != 0 );
+      ctx.stroke();
+  }
+
+  ctx.strokeStyle = "#fc0";
+  ctx.lineWidth = 1.5;
+  ctx.fillRect(0,0,300,300);
+
+  // Uniform scaling
+  ctx.save()
+  ctx.translate(50,50);
+  drawSpirograph(ctx,22,6,5);  // no scaling
+
+  ctx.translate(100,0);
+  ctx.scale(0.75,0.75);
+  drawSpirograph(ctx,22,6,5);
+// 加了下面的restore 位移 和缩放等就会撤出一个状态到上一个,不然的话是在当前缩放基础,也就是在哪个状态
+  // 栈的基础上进行操作
+    ctx.restore()
+  ctx.translate(133.333,0);
+  ctx.scale(0.75,0.75);
+  drawSpirograph(ctx,22,6,5);
+  ctx.restore();
+
+
+</script>
+</body>
+</html>
