@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            text-align: center
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas" style="border: 1px solid" width="600" height="300"></canvas>
+<script>
+    // codepen上面也有问题复制过来
+  var canvas = document.getElementById('canvas');
+  var ctx = canvas.getContext('2d');
+  //简写
+  var raf;
+  var running = false;
+
+  // 绘制小球
+  var ball = {
+    // x y 都可以是负数,并且可以超过canvas画布大小
+    x: 100,
+    y: 100,
+    // 速率矢量
+    vx: 5,
+    vy: 1,
+    radius: 25,
+    color: 'blue',
+    draw: function() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
+      ctx.closePath();
+      ctx.fillStyle = this.color;
+      ctx.fill();
+    }
+  };
+
+  function clear() {
+    ctx.fillStyle = 'rgba(255,255,255,0.3)';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+  }
+
+
+  function draw() {
+//    ctx.clearRect(0,0, canvas.width, canvas.height);
+    // 半透明矩形实现长尾效果
+    /*ctx.fillStyle = 'rgba(255,255,255,0.3)';
+    ctx.fillRect(0,0,canvas.width,canvas.height);*/
+
+    clear()
+    ball.draw();
+
+    ball.x += ball.vx;
+    ball.y += ball.vy;
+    // 下面会使得动作更真实,加速度, 减速度, 逐帧减少垂直方向的速度，所以小球最终将只会在地板上弹跳。
+    //但是要在之前的基础上
+    /*ball.vy *= .99
+    ball.vy += .25;*/
+
+    // 边界碰撞检测
+    if (ball.y + ball.vy > canvas.height || ball.y + ball.vy < 0) {
+      ball.vy = -ball.vy;
+    }
+    if (ball.x + ball.vx > canvas.width || ball.x + ball.vx < 0) {
+      ball.vx = -ball.vx;
+    }
+    raf = window.requestAnimationFrame(draw);
+  }
+
+  canvas.addEventListener('mousemove', function(e){
+    console.log(11)
+//    raf = window.requestAnimationFrame(draw);
+    if (!running) {
+      clear();
+      //小球跟随鼠标
+      ball.x = e.clientX;
+      ball.y = e.clientY;
+      ball.draw();
+    }
+  });
+  canvas.addEventListener('click',function(e){
+    if (!running) {
+      raf = window.requestAnimationFrame(draw);
+      running = true;
+    }
+  });
+
+  // 取消的是返回的类似的一个id传入 所以才多赋值一个raf变量
+  canvas.addEventListener('mouseout', function(e){
+    window.cancelAnimationFrame(raf);
+    running = false;
+  });
+  ball.draw();
+</script>
+</body>
+</html>
